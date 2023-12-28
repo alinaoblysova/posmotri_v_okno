@@ -42,11 +42,6 @@ ol {
   list-style: none;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 .visually-hidden {
   position: absolute;
   inline-size: 1px;
@@ -89,31 +84,27 @@ a {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  border: 0;
-}
-
-.search-form__fieldset-title {
-  cursor: default;
+  border: none;
 }
 
 .search-form__textfield {
   inline-size: 225px;
   block-size: 27px;
-  border: 0;
+  border: none;
   border-block-start: 1px solid #fff;
   border-block-end: 1px solid #fff;
   color: inherit;
   font-family: inherit;
   font-size: inherit;
   background-color: transparent;
+  cursor: pointer;
   appearance: none;
 }
 
 .search-form__textfield::placeholder {
   color: rgba(255, 255, 255, 0.70);
-  font-family: Fira Sans Condensed;
+  font-family: 'Fira Sans Condensed', sans-serif;
   font-size: 18px;
-  letter-spacing: -0.01em;
 }
 
 .search-form__checkbox-list {
@@ -125,6 +116,7 @@ a {
   display: flex;
   align-items: center;
   gap: 5px;
+  cursor: pointer;
 }
 
 .search-form__pseudo-checkbox {
@@ -137,7 +129,6 @@ a {
 }
 
 .button {
-  inline-size: 194px;
   block-size: 34px;
   border: 1px solid #fff;
   color: inherit;
@@ -146,10 +137,12 @@ a {
   font-size: inherit;
   background-color: transparent;
   cursor: pointer;
+  appearance: none;
 }
 
 .search-form__submit-button {
   align-self: end;
+  inline-size: 194px;
 }
 
 .content__details {
@@ -159,12 +152,11 @@ a {
 }
 
 .title {
-  font-family: Oswald;
+  font-family: 'Oswald', sans-serif;
   font-weight: 700;
   font-size: 75px;
-  line-height: 94%;
+  line-height: 0.94;
   text-transform: uppercase;
-  cursor: default;
 }
 
 .content__accent {
@@ -178,12 +170,18 @@ a {
   gap: 30px;
   inline-size: 394px;
   block-size: 298px;
-  overflow: scroll;
+  overflow: auto;
 }
 
-.content__card-link, .content__card-link_current {
+.content__card-link {
   display: block;
   padding: 2px 0 2px 2px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.content__card-link_current {
+  background-color: #545050;
 }
 
 .content__video-card {
@@ -191,24 +189,26 @@ a {
   block-size: 107px;
 }
 
+.content__video-card-description-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 6px;
+}
+
 .content__video-card-title {
-  inline-size: 200px;
-  font-family: Oswald;
+  font-family: 'Oswald', sans-serif;
   font-weight: 700;
   font-size: 30px;
-  line-height: 100%;
+  line-height: 1;
   text-transform: uppercase;
 }
 
 .content__video-card-description {
-  inline-size: 200px;
-  margin-block-start: 6px;
-  line-height: 90%;
+  line-height: 0.9;
 }
 
 .content__video-card-thumbnail {
-  inline-size: 100%;
-  block-size: 100%;
   object-fit: cover;
   object-position: center;
 }
@@ -217,73 +217,41 @@ a {
   inline-size: 100%;
 }
 
-.preloader-template {
-  position: absolute;
-  inline-size: 100%;
-  block-size: 100%;
-}
-
 /*:hover*/
 
-.search-form__label:hover {
-  cursor: pointer;
+.search-form__textfield:hover {
+  cursor: text;
 }
 
-.search-form__label-text:not(.visually-hidden) {
-  position: relative;
-}
-
-.button-text {
-  position: relative;
-}
-
-.search-form__label:hover > .search-form__label-text::after, 
-.button:hover > .button-text::after {
-  content: '';
-  position: absolute;
-  inset: 1px 0;
-  inline-size: 100%;
-  border-block-end: 1px solid #fff;
-  /*добавляем подчеркивание текста в чекбоксах и кнопках псевдоэлементами*/
-}
-
-.content__video-card:hover {
+.search-form__label:hover > .search-form__label-text,
+.button:hover,
+.content__card-link:hover {
   text-decoration: underline;
-  text-underline-offset: 5.5px;
+  text-underline-offset: 4px;
 }
 
 /*:active*/
 
 .search-form__textfield:active {
   border: 1px solid #fff;
-  outline: none;
 }
 
 .search-form__checkbox:checked + .search-form__pseudo-checkbox::after {
   content: '';
   position: absolute;
-  inset: 1.5px;
+  inset: 1px;
   inline-size: 15px;
   block-size: 15px;
   background-color: #fff;
-  /*заполняем чекбоксы псевдоэлементами*/
 }
 
 .button:active, 
-.content__video-card:active,
-.content__card-link_current {
+.content__card-link:active {
+  /*при :hover появляется подчеркивание текста, при :active (в момент нажатия) подчеркивания по макету нет*/
+  /*при :active (в момент нажатия) курсор все еще наведен на элемент и потому, параллельно состоянию :active, задает еще и :hover (по сути :active + :hover)*/
+  /*для соответствия макету в таком случае необходимо сбросить подчеркивание*/
   text-decoration: none;
   background-color: #545050;
-}
-
-.search-form__label:active > .search-form__label-text::after, 
-.button:active > .button-text::after {
-  content: '';
-  position: absolute;
-  inset: 1px 0;
-  inline-size: 100%;
-  border-block-end: 0;
-  /*убираем подчеркивание текста в чекбоксах и кнопках псевдоэлементами*/
 }
 
 /*:focus*/
@@ -301,7 +269,7 @@ a {
   outline-offset: 2px;
 }
 
-.content__list-item:has(.content__card-link:focus-visible) {
+.content__card-link:focus-visible {
   outline: 1px solid #fff;
   outline-offset: -1px;
 }
